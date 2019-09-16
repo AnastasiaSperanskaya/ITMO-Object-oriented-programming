@@ -22,16 +22,32 @@ namespace lab1
             {
                 return a.m * b.n > b.m * a.n;
             }
+
+            public static RationalFraction operator +(RationalFraction a, RationalFraction b)
+            {
+                return new RationalFraction(a.m * b.n + a.n * b.m, a.n * b.n);
+            }
+
+            public void WriteFraction()
+            {
+                if(this.m == 0) Console.WriteLine("0");
+                else if(this.n == 1) Console.WriteLine(this.m);
+                else Console.WriteLine(this.m + "/" + this.n);
+            }
         }
 
     class FractionList
         {
             public List<RationalFraction> MyFractions = new List<RationalFraction>();
-
             public void AddFraction(int m, int n)
             {
                 RationalFraction F = new RationalFraction(m, n);
-                MyFractions.Add(F);
+                if(n == 0)
+                    Console.WriteLine("Error");
+                else
+                {
+                    MyFractions.Add(F);
+                }
             }
 
             public RationalFraction GetMaxRationalFraction()
@@ -69,15 +85,42 @@ namespace lab1
                         n++;
                 return n;
             }
-            
+
+            public int GetAmount()
+            {
+                int n = 0;
+                foreach (var F in MyFractions)
+                {
+                    n++;
+                }
+                return n;
+            }
         }
 
     class Polynomial
     {
-        public List<RationalFraction> coeffs;
-
+        public FractionList coeffs = new FractionList();
         public Polynomial PolynomialSum(Polynomial P1, Polynomial P2)
         {
+            var max = Math.Max(P1.coeffs.GetAmount(), P2.coeffs.GetAmount());
+            Polynomial Sum = new Polynomial();
+
+            for (var i = 0; i < max; i++)
+            {
+                var coeff1 = P1.coeffs.MyFractions[i];
+                var coeff2 = P2.coeffs.MyFractions[i];
+                if (coeff1 != null && coeff2 != null) Sum.coeffs.MyFractions[i] = coeff1 + coeff2;
+                else if (coeff1 != null) Sum.coeffs.MyFractions[i] = coeff1;
+                else Sum.coeffs.MyFractions[i] = coeff2;
+            }
+            
+            return Sum;
+        }
+
+        public void WritePolynom()
+        {
+            for(var i = 0; i < this.coeffs.GetAmount(); i++)
+                Console.Write(this.coeffs.MyFractions[i].m + "/" + this.coeffs.MyFractions[i].n + " ");
             
         }
         
@@ -88,18 +131,29 @@ namespace lab1
             public static void Main(string[] args)
             {
                 RationalFraction F1 = new RationalFraction(1, 2);
-                Console.WriteLine(F1.m + " / " + F1.n);
+                Console.WriteLine(F1.m + "/" + F1.n);
                 
                 FractionList List1 = new FractionList();
                 List1.AddFraction(1, 3);
                 List1.AddFraction(2, 3);
                 List1.AddFraction(1, 4);
                 List1.AddFraction(2, 4);
-                Console.WriteLine(List1.GetMaxRationalFraction().m + " / " + List1.GetMaxRationalFraction().n);
-                Console.WriteLine(List1.GetMinRationalFraction().m + " / " + List1.GetMinRationalFraction().n);
+                List1.AddFraction(0, 0);
+                List1.GetMaxRationalFraction().WriteFraction();
+                List1.GetMinRationalFraction().WriteFraction();
                 Console.WriteLine(List1.CountGreater(F1));
                 Console.WriteLine(List1.CountLower(F1));
-
+                
+                Polynomial P1 = new Polynomial();
+                P1.coeffs.AddFraction(1,2);
+                P1.coeffs.AddFraction(1,3);
+                
+                Polynomial P2 = new Polynomial();
+                P2.coeffs.AddFraction(1,2);
+                P2.coeffs.AddFraction(1,3);
+                
+                Polynomial sum = new Polynomial().PolynomialSum(P1, P2);
+                sum.WritePolynom();
             }
         }
 }

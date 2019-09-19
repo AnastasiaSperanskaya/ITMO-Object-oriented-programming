@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace lab1
 {
-    class RationalFraction
+    public class RationalFraction
         {
             public int m, n;
 
@@ -36,9 +36,29 @@ namespace lab1
             }
         }
 
-    class FractionList
+    public class FractionList
         {
             public List<RationalFraction> MyFractions = new List<RationalFraction>();
+          
+            public FractionList() { }
+
+            public FractionList(List<RationalFraction> list)
+            {
+                this.MyFractions.AddRange(list);
+            }
+
+            public void AddFraction(RationalFraction fraction) {
+                MyFractions.Add(fraction);
+            }
+            
+            public RationalFraction this[int i]
+            {
+                get => MyFractions[i];
+                set
+                {
+                    MyFractions[i] = value;
+                }
+            }
             public void AddFraction(int m, int n)
             {
                 RationalFraction F = new RationalFraction(m, n);
@@ -49,7 +69,6 @@ namespace lab1
                     MyFractions.Add(F);
                 }
             }
-
             public RationalFraction GetMaxRationalFraction()
             {
                 RationalFraction max = null;
@@ -97,30 +116,43 @@ namespace lab1
             }
         }
 
-    class Polynomial
+    public class Polynomial
     {
-        public FractionList coeffs = new FractionList();
+        public readonly FractionList Coeffs;
+        
+        public Polynomial(List<RationalFraction> coefs) 
+        {
+            this.Coeffs = new FractionList(coefs);
+        }
+        public Polynomial(FractionList coefs)
+        {
+            this.Coeffs = coefs;
+        }
         public Polynomial PolynomialSum(Polynomial P1, Polynomial P2)
         {
-            var max = Math.Max(P1.coeffs.GetAmount(), P2.coeffs.GetAmount());
-            Polynomial Sum = new Polynomial();
+            var max = Math.Max(P1.Coeffs.GetAmount(), P2.Coeffs.GetAmount());
 
-            for (var i = 0; i < max; i++)
-            {
-                var coeff1 = P1.coeffs.MyFractions[i];
-                var coeff2 = P2.coeffs.MyFractions[i];
-                if (coeff1 != null && coeff2 != null) Sum.coeffs.MyFractions[i] = coeff1 + coeff2;
-                else if (coeff1 != null) Sum.coeffs.MyFractions[i] = coeff1;
-                else Sum.coeffs.MyFractions[i] = coeff2;
+            var sum = new List<RationalFraction>(max);
+
+            for (var i = 0; i < max; i++) {
+                var coeff1 = P1.Coeffs.GetAmount() - i - 1 >= 0 ? P1.Coeffs[P1.Coeffs.GetAmount() - i - 1] : null;
+                var coeff2 = P2.Coeffs.GetAmount() - i - 1 >= 0 ? P2.Coeffs[P2.Coeffs.GetAmount() - i - 1] : null;
+
+                if(coeff1 != null && coeff2 != null)
+                    sum.Add(coeff1 + coeff1);
+                else if(coeff1 != null)
+                    sum.Add(coeff1);
+                else
+                    sum.Add(coeff2);
             }
-            
-            return Sum;
+
+            return new Polynomial(sum);
         }
 
         public void WritePolynom()
         {
-            for(var i = 0; i < this.coeffs.GetAmount(); i++)
-                Console.Write(this.coeffs.MyFractions[i].m + "/" + this.coeffs.MyFractions[i].n + " ");
+            for(var i = 0; i < this.Coeffs.GetAmount(); i++)
+                Console.Write(this.Coeffs.MyFractions[i].m + "/" + this.Coeffs.MyFractions[i].n + " ");
             
         }
         
@@ -144,15 +176,16 @@ namespace lab1
                 Console.WriteLine(List1.CountGreater(F1));
                 Console.WriteLine(List1.CountLower(F1));
                 
-                Polynomial P1 = new Polynomial();
-                P1.coeffs.AddFraction(1,2);
-                P1.coeffs.AddFraction(1,3);
-                
-                Polynomial P2 = new Polynomial();
-                P2.coeffs.AddFraction(1,2);
-                P2.coeffs.AddFraction(1,3);
-                
-                Polynomial sum = new Polynomial().PolynomialSum(P1, P2);
+                FractionList List3 = new FractionList();
+                List3.AddFraction(1,2);
+                Polynomial P1 = new Polynomial(List3);
+
+                FractionList List4 = new FractionList();
+                List4.AddFraction(1,2);
+                Polynomial P2 = new Polynomial(List4);
+
+                FractionList List2 = new FractionList();
+                Polynomial sum = new Polynomial(List2).PolynomialSum(P2, P1);
                 sum.WritePolynom();
             }
         }

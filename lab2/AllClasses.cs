@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace lab2 
 {
@@ -34,9 +35,10 @@ namespace lab2
         public String Name;
         public Genre Genre;
 
-        public Track(Artist artist, string name)
+        public Track(Artist artist, Album album, string name)
         {
             this.Artist = artist;
+            this.Album = album;
             this.Name = name;
             this.Genre = artist.Genre;
         }
@@ -68,33 +70,83 @@ namespace lab2
 
     class Catalog
     {
+        public String Name;
         public List<Album> Albums = new List<Album>();
-        public List<Track> TrackCollection = new List<Track>();
+        public List<TrackCollection> TrackCollection = new List<TrackCollection>();
 
+        public Catalog(String name)
+        {
+            this.Name = name;
+        }
         public void AddAlbum(Album album)
         {
             this.Albums.Add(album);
         }
 
+        public void AddTrackCollection(TrackCollection collection)
+        {
+            this.TrackCollection.Add(collection);
+        }
+    }
+
+    class TrackCollection
+    {
+        public String Name;
+        public List<Track> Tracks = new List<Track>();
+
+        public TrackCollection(String name)
+        {
+            this.Name = name;
+        }
+
         public void AddTrack(Track track)
         {
-            this.TrackCollection.Add(track);
+            this.Tracks.Add(track);
         }
     }
     
     class Genre
     {
-        public String Name;
-        public List<Genre> ChildGenres = new List<Genre>();
+        public readonly String Name;
+        public readonly List<Genre> ChildGenres = new List<Genre>();
 
         public Genre(String name)
         {
             this.Name = name;
         }
+
+        public Genre(String name, params SubGenre[] subGenres): this(name)
+        {
+            foreach (SubGenre genre in subGenres)
+                AddChildren(genre);
+        }
+
+        public void AddChildren(SubGenre genre)
+        {
+            this.ChildGenres.Add(genre);
+            genre.AddParent(this);
+        }
+
+        public bool IsInstanceOrChildren(Genre genre)
+        {
+            return genre == this || ChildGenres.Any(it => it.IsInstanceOrChildren(genre));
+        }
     }
 
-    class SubGenre
+    class SubGenre: Genre
     {
-        public List<Genre> ParentGenres = new List<Genre>();
+
+        public readonly List<Genre> ParentGenres = new List<Genre>();
+
+        public SubGenre(String name, params Genre[] parentGenres) : base(name)
+        {
+            foreach (var genre in parentGenres)
+                genre.AddChildren(this);
+        }
+
+        public void AddParent(Genre genre)
+        {
+            this.ParentGenres.Add(genre);
+        }
     }
 }

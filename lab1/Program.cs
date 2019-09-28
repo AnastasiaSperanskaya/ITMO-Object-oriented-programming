@@ -41,6 +41,8 @@ namespace lab1
             public List<RationalFraction> MyFractions = new List<RationalFraction>();
           
             public FractionList() { }
+            
+            public int Count => MyFractions.Count;
 
             public FractionList(List<RationalFraction> list)
             {
@@ -104,16 +106,6 @@ namespace lab1
                         n++;
                 return n;
             }
-
-            public int GetAmount()
-            {
-                int n = 0;
-                foreach (var F in MyFractions)
-                {
-                    n++;
-                }
-                return n;
-            }
         }
 
     public class Polynomial
@@ -128,31 +120,35 @@ namespace lab1
         {
             this.Coeffs = coefs;
         }
-        public Polynomial PolynomialSum(Polynomial P1, Polynomial P2)
-        {
-            var max = Math.Max(P1.Coeffs.GetAmount(), P2.Coeffs.GetAmount());
 
-            var sum = new List<RationalFraction>(max);
+        public static Polynomial operator +(Polynomial a, Polynomial b) {
+            var num = Math.Max(a.Coeffs.Count, b.Coeffs.Count);
 
-            for (var i = 0; i < max; i++) {
-                var coeff1 = P1.Coeffs.GetAmount() - i - 1 >= 0 ? P1.Coeffs[P1.Coeffs.GetAmount() - i - 1] : null;
-                var coeff2 = P2.Coeffs.GetAmount() - i - 1 >= 0 ? P2.Coeffs[P2.Coeffs.GetAmount() - i - 1] : null;
+            var nextCoefs = new List<RationalFraction>(num);
 
-                if(coeff1 != null && coeff2 != null)
-                    sum.Add(coeff1 + coeff1);
-                else if(coeff1 != null)
-                    sum.Add(coeff1);
+            for (var i = 0; i < num; i++) {
+                var coefA = a.Coeffs.Count - i - 1 >= 0 ? a.Coeffs[a.Coeffs.Count - i - 1] : null;
+                var coefB = b.Coeffs.Count - i - 1 >= 0 ? b.Coeffs[b.Coeffs.Count - i - 1] : null;
+
+                if(coefA != null && coefB != null)
+                    nextCoefs.Add(coefA + coefB);
+                else if(coefA != null)
+                    nextCoefs.Add(coefA);
                 else
-                    sum.Add(coeff2);
+                    nextCoefs.Add(coefB);
             }
 
-            return new Polynomial(sum);
+            nextCoefs.Reverse();
+
+            return new Polynomial(nextCoefs);
         }
 
         public void WritePolynom()
         {
-            for(var i = 0; i < this.Coeffs.GetAmount(); i++)
-                Console.Write(this.Coeffs.MyFractions[i].m + "/" + this.Coeffs.MyFractions[i].n + " ");
+            var copy = this;
+            for(var i = copy.Coeffs.Count - 1; i >= 0; i--)
+                Console.Write(copy.Coeffs.MyFractions[i].m + "/" + copy.Coeffs.MyFractions[i].n + " ");
+            Console.WriteLine();
             
         }
         
@@ -163,7 +159,10 @@ namespace lab1
             public static void Main(string[] args)
             {
                 RationalFraction F1 = new RationalFraction(1, 2);
-                Console.WriteLine(F1.m + "/" + F1.n);
+                RationalFraction F2 = new RationalFraction(1, 3);
+                RationalFraction F3 = F1 + F2;
+                Console.WriteLine(F3.m + "/" + F3.n);
+                Console.WriteLine();
                 
                 FractionList List1 = new FractionList();
                 List1.AddFraction(1, 3);
@@ -175,17 +174,24 @@ namespace lab1
                 List1.GetMinRationalFraction().WriteFraction();
                 Console.WriteLine(List1.CountGreater(F1));
                 Console.WriteLine(List1.CountLower(F1));
+                Console.WriteLine();
                 
                 FractionList List3 = new FractionList();
-                List3.AddFraction(1,2);
+                List3.AddFraction(1,3);
+                List3.AddFraction(2,3);
+                List3.AddFraction(2,3);
                 Polynomial P1 = new Polynomial(List3);
+                P1.WritePolynom();
 
                 FractionList List4 = new FractionList();
+                List4.AddFraction(1,3);
+                List4.AddFraction(3,3);
+                List4.AddFraction(1,2);
                 List4.AddFraction(1,2);
                 Polynomial P2 = new Polynomial(List4);
-
-                FractionList List2 = new FractionList();
-                Polynomial sum = new Polynomial(List2).PolynomialSum(P2, P1);
+                P2.WritePolynom();
+                
+                Polynomial sum = P1 + P2;
                 sum.WritePolynom();
             }
         }

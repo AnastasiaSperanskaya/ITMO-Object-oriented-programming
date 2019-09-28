@@ -107,8 +107,8 @@ namespace lab2
     
     class Genre
     {
-        public readonly String Name;
-        public readonly List<Genre> ChildGenres = new List<Genre>();
+        public String Name;
+        public List<Genre> ChildGenres = new List<Genre>();
 
         public Genre(String name)
         {
@@ -136,7 +136,7 @@ namespace lab2
     class SubGenre: Genre
     {
 
-        public readonly List<Genre> ParentGenres = new List<Genre>();
+        public List<Genre> ParentGenres = new List<Genre>();
 
         public SubGenre(String name, params Genre[] parentGenres) : base(name)
         {

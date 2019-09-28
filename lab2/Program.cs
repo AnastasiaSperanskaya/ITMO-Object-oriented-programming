@@ -54,11 +54,12 @@ namespace lab2
             
             Catalog.AddTrackCollection(TheBestOfAll);
             
-            Search search = new Search();
-            search.SearchArtists(Catalog);
-            search.SearchAlbums(Catalog);
-            search.SearchSongWithGenre(Catalog, Pop);
-            search.SearchArtistsWithGenre(Catalog, AltRock);
+            Search search = new Search(Catalog);
+            search.SearchArtists();
+            search.SearchAlbums();
+            search.SearchArtistsWithGenre(AltRock);
+            
+            search.MultiPurposeTrackSearch();
         }
     }
 }

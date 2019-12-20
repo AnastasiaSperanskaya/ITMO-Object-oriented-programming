@@ -1,0 +1,11 @@
+/Users/anastasia/Desktop/ООП/lab3/lab3/bin/Debug/netcoreapp2.2/lab3.deps.json
+/Users/anastasia/Desktop/ООП/lab3/lab3/bin/Debug/netcoreapp2.2/lab3.runtimeconfig.json
+/Users/anastasia/Desktop/ООП/lab3/lab3/bin/Debug/netcoreapp2.2/lab3.runtimeconfig.dev.json
+/Users/anastasia/Desktop/ООП/lab3/lab3/bin/Debug/netcoreapp2.2/lab3.dll
+/Users/anastasia/Desktop/ООП/lab3/lab3/bin/Debug/netcoreapp2.2/lab3.pdb
+/Users/anastasia/Desktop/ООП/lab3/lab3/obj/Debug/netcoreapp2.2/lab3.csprojAssemblyReference.cache
+/Users/anastasia/Desktop/ООП/lab3/lab3/obj/Debug/netcoreapp2.2/lab3.csproj.CoreCompileInputs.cache
+/Users/anastasia/Desktop/ООП/lab3/lab3/obj/Debug/netcoreapp2.2/lab3.AssemblyInfoInputs.cache
+/Users/anastasia/Desktop/ООП/lab3/lab3/obj/Debug/netcoreapp2.2/lab3.AssemblyInfo.cs
+/Users/anastasia/Desktop/ООП/lab3/lab3/obj/Debug/netcoreapp2.2/lab3.dll
+/Users/anastasia/Desktop/ООП/lab3/lab3/obj/Debug/netcoreapp2.2/lab3.pdb

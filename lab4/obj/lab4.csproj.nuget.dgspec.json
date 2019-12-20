@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/anastasia/Desktop/ООП/lab4/lab4/lab4.csproj": {}
+  },
+  "projects": {
+    "/Users/anastasia/Desktop/ООП/lab4/lab4/lab4.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/anastasia/Desktop/ООП/lab4/lab4/lab4.csproj",
+        "projectName": "lab4",
+        "projectPath": "/Users/anastasia/Desktop/ООП/lab4/lab4/lab4.csproj",
+        "packagesPath": "/Users/anastasia/.nuget/packages/",
+        "outputPath": "/Users/anastasia/Desktop/ООП/lab4/lab4/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/Users/anastasia/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.18, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

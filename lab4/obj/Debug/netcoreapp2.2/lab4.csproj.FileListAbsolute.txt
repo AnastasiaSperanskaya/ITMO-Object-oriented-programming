@@ -1,0 +1,10 @@
+/Users/anastasia/Desktop/ООП/lab4/lab4/bin/Debug/netcoreapp2.2/lab4.deps.json
+/Users/anastasia/Desktop/ООП/lab4/lab4/bin/Debug/netcoreapp2.2/lab4.runtimeconfig.json
+/Users/anastasia/Desktop/ООП/lab4/lab4/bin/Debug/netcoreapp2.2/lab4.runtimeconfig.dev.json
+/Users/anastasia/Desktop/ООП/lab4/lab4/bin/Debug/netcoreapp2.2/lab4.dll
+/Users/anastasia/Desktop/ООП/lab4/lab4/bin/Debug/netcoreapp2.2/lab4.pdb
+/Users/anastasia/Desktop/ООП/lab4/lab4/obj/Debug/netcoreapp2.2/lab4.csprojAssemblyReference.cache
+/Users/anastasia/Desktop/ООП/lab4/lab4/obj/Debug/netcoreapp2.2/lab4.AssemblyInfoInputs.cache
+/Users/anastasia/Desktop/ООП/lab4/lab4/obj/Debug/netcoreapp2.2/lab4.AssemblyInfo.cs
+/Users/anastasia/Desktop/ООП/lab4/lab4/obj/Debug/netcoreapp2.2/lab4.dll
+/Users/anastasia/Desktop/ООП/lab4/lab4/obj/Debug/netcoreapp2.2/lab4.pdb
